@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Shivansh Goel | CS @ ASU · Data &amp; AI · Full-Stack</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@700;900&family=Inter:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#c6c6c7",
+            "on-background":              "#e5e2e1",
+            "on-primary-container":       "#757575",
+            "on-primary-fixed":           "#1b1b1b",
+            "background":                 "#131313",
+            "surface-container-highest":  "#353535",
+            "error-container":            "#93000a",
+            "on-tertiary-container":      "#e3251f",
+            "inverse-surface":            "#e5e2e1",
+            "on-error":                   "#690005",
+            "on-primary-fixed-variant":   "#474747",
+            "secondary-fixed-dim":        "#c6c6c7",
+            "outline-variant":            "#4c4546",
+            "surface-container-lowest":   "#0e0e0e",
+            "on-error-container":         "#ffdad6",
+            "error":                      "#ffb4ab",
+            "surface-container-high":     "#2a2a2a",
+            "on-secondary":               "#2f3131",
+            "surface-variant":            "#353535",
+            "surface":                    "#131313",
+            "on-tertiary-fixed":          "#410001",
+            "surface-container":          "#20201f",
+            "inverse-on-surface":         "#313030",
+            "on-tertiary":                "#690003",
+            "primary":                    "#c6c6c6",
+            "on-secondary-fixed-variant": "#454747",
+            "secondary-fixed":            "#e2e2e2",
+            "surface-bright":             "#393939",
+            "on-secondary-fixed":         "#1a1c1c",
+            "tertiary-fixed":             "#ffdad5",
+            "surface-container-low":      "#1c1b1b",
+            "on-surface-variant":         "#cfc4c5",
+            "on-primary":                 "#303030",
+            "secondary-container":        "#454747",
+            "on-secondary-container":     "#b4b5b5",
+            "tertiary":                   "#ffb4aa",
+            "on-tertiary-fixed-variant":  "#930005",
+            "surface-tint":               "#c6c6c6",
+            "tertiary-fixed-dim":         "#ffb4aa",
+            "primary-fixed":              "#e2e2e2",
+            "surface-dim":                "#131313",
+            "on-surface":                 "#e5e2e1",
+            "tertiary-container":         "#000000",
+            "primary-fixed-dim":          "#c6c6c6",
+            "inverse-primary":            "#5e5e5e",
+            "primary-container":          "#000000",
+            "outline":                    "#988e90"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg":      "0.5rem",
+            "xl":      "0.75rem",
+            "full":    "9999px"
+          },
+          spacing: {
+            "margin-desktop": "80px",
+            "section-gap":    "160px",
+            "gutter":         "32px",
+            "margin-mobile":  "24px"
+          },
+          fontFamily: {
+            "headline-lg":        ["Hanken Grotesk"],
+            "display-xl":         ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Hanken Grotesk"],
+            "display-xl-mobile":  ["Hanken Grotesk"],
+            "body-lg":            ["Inter"],
+            "body-md":            ["Inter"],
+            "code-sm":            ["JetBrains Mono"]
+          },
+          fontSize: {
+            "headline-lg":        ["48px",  {"lineHeight":"56px",  "letterSpacing":"-0.02em","fontWeight":"700"}],
+            "display-xl":         ["120px", {"lineHeight":"110px", "letterSpacing":"-0.04em","fontWeight":"900"}],
+            "headline-lg-mobile": ["32px",  {"lineHeight":"40px",  "fontWeight":"700"}],
+            "display-xl-mobile":  ["64px",  {"lineHeight":"60px",  "letterSpacing":"-0.04em","fontWeight":"900"}],
+            "body-lg":            ["20px",  {"lineHeight":"32px",  "fontWeight":"400"}],
+            "body-md":            ["16px",  {"lineHeight":"24px",  "fontWeight":"400"}],
+            "code-sm":            ["14px",  {"lineHeight":"20px",  "fontWeight":"400"}]
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Design tokens for style-block use ── */
+    :root {
+      --c-bg:               #131313;
+      --c-outline-variant:  #4c4546;
+      --c-accent:           #e3251f;
+      --c-nav-scrolled:     rgba(19, 19, 19, 0.95);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar       { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--c-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--c-outline-variant); border-radius: 10px; }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      padding: 0.5rem 1.25rem;
+      background: var(--c-accent);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-decoration: none;
+      z-index: 9999;
+    }
+    .skip-link:focus { top: 0.75rem; }
+
+    /* ── Focus visible ── */
+    :focus-visible {
+      outline: 2px solid var(--c-accent);
+      outline-offset: 3px;
+    }
+
+    /* ── Blur-slide-up reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(12px);
+      transition:
+        opacity   0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        filter    0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: opacity, transform, filter;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+
+    /* Stagger delays for project cards */
+    .stagger-1 { transition-delay: 0.09s; }
+    .stagger-2 { transition-delay: 0.18s; }
+    .stagger-3 { transition-delay: 0.27s; }
+    .stagger-4 { transition-delay: 0.36s; }
+
+    /* ── Hero word-by-word ── */
+    .hero-word {
+      display: inline-block;
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(40px);
+      animation: wordReveal 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes wordReveal {
+      0%   { opacity: 0;   filter: blur(10px); transform: translateY(40px); }
+      50%  { opacity: 0.5; filter: blur(4px);  transform: translateY(-4px); }
+      100% { opacity: 1;   filter: blur(0px);  transform: translateY(0); }
+    }
+
+    /* ── Hero image mask ── */
+    .hero-mask { mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
+
+    /* ── Skill progress bars ── */
+    .progress-bar {
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    .skills-active .progress-bar { width: var(--target-width); }
+
+    /* ── Nav scroll state ── */
+    nav { transition: background-color 0.4s ease, border-color 0.4s ease, padding 0.4s ease; }
+    nav.scrolled {
+      background-color: var(--c-nav-scrolled) !important;
+      border-color: rgba(76, 69, 70, 0.5);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    #mobile-menu.open { transform: translateX(0); }
+
+    /* ── Parallax ── */
+    .parallax-text { will-change: transform; }
+
+    /* ── Reduced motion overrides ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        filter: none;
+        transform: none;
+        transition: opacity 0.5s ease;
+      }
+      .hero-word {
+        filter: none;
+        transform: none;
+        animation: simpleFade 0.5s ease forwards;
+      }
+      @keyframes simpleFade { from { opacity: 0; } to { opacity: 1; } }
+      .progress-bar { transition: width 1.5s ease; }
+      .parallax-text { will-change: auto; }
+      #mobile-menu { transition: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background selection:bg-on-tertiary-container selection:text-white overflow-x-hidden">
+
+  <!-- Skip to content -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ── Mobile menu overlay ── -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 bg-background flex flex-col justify-center items-center"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile navigation"
+  >
+    <button
+      id="mobile-menu-close"
+      class="absolute top-6 right-6 text-on-background min-w-[44px] min-h-[44px] flex items-center justify-center"
+      aria-label="Close navigation menu"
+      type="button"
+    >
+      <span class="material-symbols-outlined text-4xl" aria-hidden="true">close</span>
+    </button>
+    <nav aria-label="Mobile navigation links">
+      <ul class="flex flex-col items-center gap-10 list-none">
+        <li><a class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase tracking-tighter mobile-nav-link hover:text-on-tertiary-container transition-colors" href="#projects">Projects</a></li>
+        <li><a class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase tracking-tighter mobile-nav-link hover:text-on-tertiary-container transition-colors" href="#experience">Experience</a></li>
+        <li><a class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase tracking-tighter mobile-nav-link hover:text-on-tertiary-container transition-colors" href="#skills">Skills</a></li>
+        <li><a class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase tracking-tighter mobile-nav-link hover:text-on-tertiary-container transition-colors" href="#about">About</a></li>
+        <li><a class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase tracking-tighter mobile-nav-link hover:text-on-tertiary-container transition-colors" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ── Top nav ── -->
+  <nav
+    class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-6 fixed top-0 z-50 bg-transparent backdrop-blur-xl border-b border-transparent"
+    id="main-nav"
+    aria-label="Main navigation"
+  >
+    <a href="#hero" class="font-display-xl-mobile text-display-xl-mobile uppercase tracking-tighter text-on-background hover:text-on-tertiary-container transition-colors">
+      Shivansh.
+    </a>
+    <div class="hidden md:flex gap-gutter" role="list">
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-background transition-colors duration-300" href="#projects">Projects</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-background transition-colors duration-300" href="#experience">Experience</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-background transition-colors duration-300" href="#skills">Skills</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-background transition-colors duration-300" href="#about">About</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-background transition-colors duration-300" href="#contact">Contact</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a
+        href="mailto:sgoel39@asu.edu"
+        class="hidden md:block bg-primary text-on-primary-fixed px-6 py-2 font-body-md text-body-md font-bold hover:opacity-70 transition-all duration-300 active:scale-95"
+      >
+        Hire Me
+      </a>
+      <button
+        id="mobile-menu-open"
+        class="md:hidden text-on-background min-w-[44px] min-h-[44px] flex items-center justify-center"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        type="button"
+      >
+        <span class="material-symbols-outlined text-3xl" aria-hidden="true">menu</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ── Hero ── -->
+    <section class="min-h-screen relative flex flex-col justify-end px-margin-mobile md:px-margin-desktop pb-24 overflow-hidden" id="hero">
+      <!-- Background image -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="assets/images/headshot.png"
+          alt=""
+          aria-hidden="true"
+          class="w-full h-full object-cover object-top opacity-35 grayscale"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30"></div>
+      </div>
+      <div class="relative z-10 w-full parallax-text">
+        <!-- Word-by-word heading — injected by JS -->
+        <h1
+          id="hero-heading"
+          class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl uppercase tracking-tighter leading-none mb-8"
+          aria-label="Shivansh Goel"
+        ></h1>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">
+          <div class="md:col-span-8">
+            <p class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background max-w-4xl">
+              CS @ ASU // <span class="text-on-tertiary-container">Data &amp; AI Intern @ EY</span> // ML &amp; Full-Stack Developer
+            </p>
+          </div>
+          <div class="md:col-span-4 flex flex-col gap-4">
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              Building intelligent systems and scalable web apps — where machine learning meets clean engineering.
+            </p>
+            <div class="flex gap-4">
+              <a
+                class="material-symbols-outlined text-on-background text-3xl hover:text-on-tertiary-container transition-colors"
+                href="https://github.com/shivansh3308"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+              >terminal</a>
+              <a
+                class="material-symbols-outlined text-on-background text-3xl hover:text-on-tertiary-container transition-colors"
+                href="https://www.linkedin.com/in/shivansh-goel/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+              >code</a>
+              <a
+                class="material-symbols-outlined text-on-background text-3xl hover:text-on-tertiary-container transition-colors"
+                href="https://mail.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Gmail"
+              >mail</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Intro ── -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop reveal">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <div class="md:col-span-2">
+          <span class="font-code-sm text-code-sm text-on-tertiary-container uppercase tracking-widest">// Intro</span>
+        </div>
+        <div class="md:col-span-10">
+          <h2 class="font-headline-lg text-headline-lg mb-12 max-w-5xl">
+            I'm a builder who turns data and logic into <span class="text-on-tertiary-container">real-world impact</span>. ML systems, full-stack platforms, and data-driven products that actually ship.
+          </h2>
+          <div class="flex flex-col md:flex-row gap-12 items-start">
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+              Bridging academic CS theory with industry-grade execution — from F1 race prediction models to housing platforms for interns. Currently a Data &amp; AI Intern at EY, applying ML to real business problems.
+            </p>
+            <a
+              href="#projects"
+              class="border border-on-background px-12 py-4 font-body-md text-body-md uppercase tracking-widest hover:bg-on-background hover:text-background transition-all whitespace-nowrap"
+            >
+              View Projects
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <section class="bg-surface-container-lowest py-section-gap px-margin-mobile md:px-margin-desktop" id="projects">
+      <div class="flex justify-between items-baseline mb-24 border-b border-outline-variant pb-8 reveal">
+        <h2 class="font-display-xl-mobile text-display-xl-mobile uppercase tracking-tighter">Selected Works</h2>
+        <span class="font-code-sm text-code-sm text-on-surface-variant">2020 — Present</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-y-32 gap-x-gutter">
+
+        <!-- Project 1: F1 Race Predictor -->
+        <div class="group reveal stagger-1 cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10] mb-8 border border-outline-variant group-hover:border-on-tertiary-container transition-all duration-500">
+            <img
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+              alt="F1 Race Predictor — terminal output showing 2025 US Grand Prix predictions with podium probabilities"
+              loading="lazy"
+              src="assets/images/f1_predictor.jpg"
+            />
+            <div class="absolute inset-0 bg-background/40 group-hover:bg-transparent transition-colors duration-500"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div class="w-16 h-16 rounded-full bg-on-tertiary-container flex items-center justify-center text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2 group-hover:text-on-tertiary-container transition-colors">F1 Race Predictor</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4">ML model forecasting race outcomes · Podium AUC 0.934 · MAE 3.6 positions</p>
+              <div class="flex gap-2 flex-wrap">
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">Python</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">XGBoost</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">FastF1</span>
+              </div>
+            </div>
+            <a class="material-symbols-outlined text-4xl group-hover:text-on-tertiary-container group-hover:rotate-45 transition-all duration-300" href="#" aria-label="View F1 Race Predictor details">arrow_outward</a>
+          </div>
+        </div>
+
+        <!-- Project 2: InternEase -->
+        <div class="group md:mt-24 reveal stagger-2 cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10] mb-8 border border-outline-variant group-hover:border-on-tertiary-container transition-all duration-500">
+            <img
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+              alt="InternEase — landing page showing Find Your Perfect Intern Housing with verified listings and flexible terms"
+              loading="lazy"
+              src="assets/images/interneaseapp.png"
+            />
+            <div class="absolute inset-0 bg-background/40 group-hover:bg-transparent transition-colors duration-500"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div class="w-16 h-16 rounded-full bg-on-tertiary-container flex items-center justify-center text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2 group-hover:text-on-tertiary-container transition-colors">InternEase</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4">Housing finder platform connecting interns with verified temporary listings</p>
+              <div class="flex gap-2 flex-wrap">
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">React</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">MySQL</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">JavaScript</span>
+              </div>
+            </div>
+            <a class="material-symbols-outlined text-4xl group-hover:text-on-tertiary-container group-hover:rotate-45 transition-all duration-300" href="#" aria-label="View InternEase details">arrow_outward</a>
+          </div>
+        </div>
+
+        <!-- Project 3: Fair Share -->
+        <div class="group reveal stagger-3 cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10] mb-8 border border-outline-variant group-hover:border-on-tertiary-container transition-all duration-500">
+            <img
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+              alt="Fair Share — collaborative expense splitting app UI showing group payment breakdowns"
+              loading="lazy"
+              src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80"
+            />
+            <div class="absolute inset-0 bg-background/40 group-hover:bg-transparent transition-colors duration-500"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div class="w-16 h-16 rounded-full bg-on-tertiary-container flex items-center justify-center text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2 group-hover:text-on-tertiary-container transition-colors">
+                Fair Share
+                <span class="font-code-sm text-code-sm text-on-tertiary-container uppercase ml-3 align-middle">WIP</span>
+              </h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4">Collaborative web app automating expense splitting among groups</p>
+              <div class="flex gap-2 flex-wrap">
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">Full Stack</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">React</span>
+              </div>
+            </div>
+            <a class="material-symbols-outlined text-4xl group-hover:text-on-tertiary-container group-hover:rotate-45 transition-all duration-300" href="#" aria-label="View Fair Share details">arrow_outward</a>
+          </div>
+        </div>
+
+        <!-- Project 4: C-Care-Bot -->
+        <div class="group md:mt-24 reveal stagger-4 cursor-pointer">
+          <div class="relative overflow-hidden aspect-[16/10] mb-8 border border-outline-variant group-hover:border-on-tertiary-container transition-all duration-500">
+            <img
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+              alt="C-Care-Bot — FTC robot chassis 3D model with mecanum wheels designed in Onshape"
+              loading="lazy"
+              src="assets/images/robot.png"
+              onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA5OLrvEC45AaevuQKnhxa-l57qkLO6iOB1CFIvQ2RK0qsLohJK_dTAVYxrVBtLxnhAFvuauarDwaF0WVFWWrODZ8al5xUFdy57yLgbv3dd7vDz2GF21j-MCfuhIoA_QVDwVtOJ7YLKgvQn_tkMKxyDIfHOnoLnLwWb_lqDpZ8FKSqlUeZIkiyfGhtB4mCE3lorcl0CBdJrGHfi6WCliZqYoVr6MfH8i9jYd2sTHGXKSYdW0UZ1X-LARza2zHFADMQtB2BbNFZwKSz9'"
+            />
+            <div class="absolute inset-0 bg-background/40 group-hover:bg-transparent transition-colors duration-500"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div class="w-16 h-16 rounded-full bg-on-tertiary-container flex items-center justify-center text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2 group-hover:text-on-tertiary-container transition-colors">C-Care-Bot</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4">COVID-19 assistance robot for contactless mask &amp; sanitizer distribution</p>
+              <div class="flex gap-2 flex-wrap">
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">Arduino</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">Onshape</span>
+                <span class="font-code-sm text-code-sm px-2 py-1 border border-outline-variant uppercase">Robotics</span>
+              </div>
+            </div>
+            <a class="material-symbols-outlined text-4xl group-hover:text-on-tertiary-container group-hover:rotate-45 transition-all duration-300" href="#" aria-label="View C-Care-Bot details">arrow_outward</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Experience & Skills ── -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter">
+
+      <!-- Experience -->
+      <div class="md:col-span-7 reveal" id="experience">
+        <span class="font-code-sm text-code-sm text-on-tertiary-container uppercase tracking-widest mb-12 block">// Experience</span>
+        <div class="space-y-16">
+
+          <div class="border-l border-outline-variant pl-8 relative group">
+            <div class="absolute -left-[5px] top-0 w-2 h-2 bg-on-tertiary-container rounded-full group-hover:scale-150 transition-transform duration-300" aria-hidden="true"></div>
+            <span class="font-code-sm text-code-sm text-on-surface-variant">Jun 2026 — Present</span>
+            <h3 class="font-headline-lg-mobile text-headline-lg-mobile mt-2">Data &amp; AI Intern</h3>
+            <p class="font-body-md text-body-md text-secondary mb-4">EY · Gurugram, India</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">Gaining practical exposure to data analysis, AI tools, and business technology. Applying ML skills to project-based work alongside industry professionals.</p>
+          </div>
+
+          <div class="border-l border-outline-variant pl-8 relative group">
+            <div class="absolute -left-[5px] top-0 w-2 h-2 bg-on-surface-variant rounded-full group-hover:bg-on-tertiary-container group-hover:scale-150 transition-all duration-300" aria-hidden="true"></div>
+            <span class="font-code-sm text-code-sm text-on-surface-variant">Aug 2025 — Nov 2025</span>
+            <h3 class="font-headline-lg-mobile text-headline-lg-mobile mt-2">Adobe Student Ambassador</h3>
+            <p class="font-body-md text-body-md text-secondary mb-4">Adobe · Tempe, Arizona</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">Created content promoting Adobe Creative Cloud including Photoshop and Lightroom. Engaged the student community and built creative skills across campus.</p>
+          </div>
+
+          <div class="border-l border-outline-variant pl-8 relative group">
+            <div class="absolute -left-[5px] top-0 w-2 h-2 bg-on-surface-variant rounded-full group-hover:bg-on-tertiary-container group-hover:scale-150 transition-all duration-300" aria-hidden="true"></div>
+            <span class="font-code-sm text-code-sm text-on-surface-variant">Jun 2022 — Aug 2022</span>
+            <h3 class="font-headline-lg-mobile text-headline-lg-mobile mt-2">Digital Developer Intern</h3>
+            <p class="font-body-md text-body-md text-secondary mb-4">Oddy Uniwraps · Delhi, India</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">Optimized website navigation and digital presence, improving user satisfaction. Executed digital marketing strategies increasing social media retention.</p>
+          </div>
+
+          <div class="border-l border-outline-variant pl-8 relative group">
+            <div class="absolute -left-[5px] top-0 w-2 h-2 bg-on-surface-variant rounded-full group-hover:bg-on-tertiary-container group-hover:scale-150 transition-all duration-300" aria-hidden="true"></div>
+            <span class="font-code-sm text-code-sm text-on-surface-variant">Oct 2021 — Dec 2021</span>
+            <h3 class="font-headline-lg-mobile text-headline-lg-mobile mt-2">Website Developer Intern</h3>
+            <p class="font-body-md text-body-md text-secondary mb-4">JSG Innotech Pvt. Ltd. · Delhi, India</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">Improved UX and implemented digital marketing tactics to increase online product visibility and drive e-commerce sales.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="md:col-span-5 reveal" id="skills">
+        <span class="font-code-sm text-code-sm text-on-tertiary-container uppercase tracking-widest mb-12 block">// Stack</span>
+        <div class="space-y-8">
+
+          <div class="skill-item">
+            <div class="flex justify-between mb-2">
+              <span class="font-body-md text-body-md font-bold">Python / ML</span>
+              <span class="font-code-sm text-code-sm">75%</span>
+            </div>
+            <div class="h-[2px] w-full bg-outline-variant" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Python / ML proficiency 75%">
+              <div class="h-full bg-on-tertiary-container progress-bar" style="--target-width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="flex justify-between mb-2">
+              <span class="font-body-md text-body-md font-bold">JavaScript / React</span>
+              <span class="font-code-sm text-code-sm">25%</span>
+            </div>
+            <div class="h-[2px] w-full bg-outline-variant" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript / React proficiency 25%">
+              <div class="h-full bg-on-background progress-bar" style="--target-width: 25%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="flex justify-between mb-2">
+              <span class="font-body-md text-body-md font-bold">Java / C++</span>
+              <span class="font-code-sm text-code-sm">15%</span>
+            </div>
+            <div class="h-[2px] w-full bg-outline-variant" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" aria-label="Java / C++ proficiency 15%">
+              <div class="h-full bg-on-background progress-bar" style="--target-width: 15%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="flex justify-between mb-2">
+              <span class="font-body-md text-body-md font-bold">SQL / MySQL</span>
+              <span class="font-code-sm text-code-sm">75%</span>
+            </div>
+            <div class="h-[2px] w-full bg-outline-variant" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="SQL / MySQL proficiency 75%">
+              <div class="h-full bg-on-background progress-bar" style="--target-width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="pt-8 flex flex-wrap gap-2">
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">XGBoost</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">TensorFlow</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">NumPy</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">FastF1</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">Git</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">Linux</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">AutoCAD</span>
+            <span class="px-3 py-1 border border-outline-variant font-code-sm text-code-sm uppercase hover:border-on-tertiary-container transition-colors cursor-default">Canva</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About ── -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-lowest" id="about">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+
+        <div class="md:col-span-5 reveal">
+          <div class="relative aspect-square border border-outline-variant p-4 group overflow-hidden">
+            <img
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+              alt="Developer workspace — multiple monitors displaying code in a focused dark environment"
+              loading="lazy"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnG0kmaO4mCxrxAkN-vLWa97crBB82jsbpoclJ1D_W_KgMyjmvoo97jVeikvw_iUDlIRrDsef87CRHn9Z-LYBXPpTKrSXq5Ma6YPtyVqfvzS3dN1qBC90nv_hOZaDIQ6z6a_BwElFk5DXO5upiarnMe_XvmwlCwGFivEGhqVgnEtAjBEBYX02bH2kxgWcEXw0ck5mkwvOn1iNkOMJ7Ot7x8rpE4C9My0ZLH0SRPVzVYCik_LK5DIFMts3Vr3AR80_5_HuyO0Nop8hm"
+            />
+            <div
+              class="absolute -bottom-8 -right-8 w-48 h-48 bg-on-tertiary-container flex items-center justify-center p-8 text-white group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500"
+              aria-hidden="true"
+            >
+              <span class="font-display-xl-mobile text-display-xl-mobile uppercase leading-none">SG</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-6 md:col-start-7 reveal">
+          <span class="font-code-sm text-code-sm text-on-tertiary-container uppercase tracking-widest block mb-8">// Profile</span>
+          <h2 class="font-headline-lg text-headline-lg mb-8">Building at the Edge of Data &amp; Code.</h2>
+          <p class="font-body-lg text-body-lg text-on-surface-variant mb-12">
+            Junior at Arizona State University (Ira A. Fulton Schools of Engineering), pursuing a B.S. in Computer Science with a minor in Data Science. Currently a Data &amp; AI Intern at EY Gurugram — applying machine learning and data analysis to real business problems. Passionate about intelligent systems that are functional, performant, and built to last.
+          </p>
+          <div class="grid grid-cols-2 gap-8">
+            <div class="hover:translate-x-2 transition-transform duration-300">
+              <span class="font-code-sm text-code-sm uppercase text-on-tertiary-container">Education</span>
+              <p class="font-body-md text-body-md mt-2 font-bold">Arizona State University</p>
+              <p class="font-code-sm text-code-sm text-on-surface-variant">B.S. CS · Data Science Minor · 2027</p>
+            </div>
+            <div class="hover:translate-x-2 transition-transform duration-300">
+              <span class="font-code-sm text-code-sm uppercase text-on-tertiary-container">Focus Areas</span>
+              <p class="font-body-md text-body-md mt-2 font-bold">ML &amp; Data Systems</p>
+              <p class="font-code-sm text-code-sm text-on-surface-variant">Full-Stack · AI · Robotics</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CTA / Contact ── -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop text-center overflow-hidden" id="contact">
+      <div class="reveal">
+        <span class="font-code-sm text-code-sm text-on-tertiary-container uppercase tracking-widest block mb-8">// Collaborate</span>
+        <h2 class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl uppercase tracking-tighter mb-12">
+          Let's Build<br/>Something Real.
+        </h2>
+        <a
+          class="inline-block border-b-4 border-on-tertiary-container font-headline-lg text-headline-lg hover:text-on-tertiary-container hover:scale-105 transition-all duration-300 mb-16 break-all"
+          href="mailto:sgoel39@asu.edu"
+        >
+          sgoel39@asu.edu
+        </a>
+        <div class="flex justify-center gap-12 flex-wrap">
+          <a
+            class="font-body-md text-body-md uppercase tracking-widest hover:text-on-tertiary-container transition-all hover:-translate-y-1"
+            href="https://www.linkedin.com/in/shivansh-goel/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >LinkedIn</a>
+          <a
+            class="font-body-md text-body-md uppercase tracking-widest hover:text-on-tertiary-container transition-all hover:-translate-y-1"
+            href="https://github.com/shivansh3308"
+            target="_blank"
+            rel="noopener noreferrer"
+          >GitHub</a>
+          <a
+            class="font-body-md text-body-md uppercase tracking-widest hover:text-on-tertiary-container transition-all hover:-translate-y-1"
+            href="mailto:sgoel39@asu.edu"
+          >Email</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-12 gap-8 bg-surface-container-lowest border-t border-outline-variant">
+    <div class="font-headline-lg-mobile text-on-background">Shivansh Goel.</div>
+    <div class="font-code-sm text-code-sm uppercase tracking-widest text-on-surface-variant text-center">
+      © 2026 Shivansh Goel · ASU CS · Data &amp; AI @ EY
+    </div>
+    <div class="flex gap-8 items-center">
+      <a
+        class="font-code-sm text-code-sm uppercase tracking-widest text-on-surface-variant hover:text-on-background underline transition-all"
+        href="https://www.linkedin.com/in/shivansh-goel/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >LinkedIn</a>
+      <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">terminal</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── Hero: word-by-word animation ──
+    const heroHeading = document.getElementById('hero-heading');
+    [['SHIVANSH', 0], ['GOEL', 0.2]].forEach(([word, delay]) => {
+      const span = document.createElement('span');
+      span.textContent = word;
+      span.className = 'hero-word block';
+      span.style.animationDelay = `${delay + 0.4}s`;
+      heroHeading.appendChild(span);
+    });
+
+    // ── Reveal via IntersectionObserver ──
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        if (entry.target.id === 'skills') entry.target.classList.add('skills-active');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Sticky nav ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 100);
+    }, { passive: true });
+
+    // ── Parallax (skip if reduced motion) ──
+    if (!prefersReducedMotion) {
+      const heroText = document.querySelector('.parallax-text');
+      window.addEventListener('scroll', () => {
+        const s = window.pageYOffset;
+        if (heroText) {
+          heroText.style.transform = `translateY(${s * 0.15}px)`;
+          heroText.style.opacity   = Math.max(0, 1 - s / 800);
+        }
+      }, { passive: true });
+    }
+
+    // ── Mobile menu ──
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openBtn    = document.getElementById('mobile-menu-open');
+    const closeBtn   = document.getElementById('mobile-menu-close');
+
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
+    });
+
+    // ── Smooth scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // ── Initial reveal for above-fold elements ──
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add('active');
+            if (el.id === 'skills') el.classList.add('skills-active');
+          }
+        });
+      }, 100);
+    });
+  </script>
+
+</body>
+</html>
